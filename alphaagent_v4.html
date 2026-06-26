@@ -980,43 +980,50 @@ for(let i=0;i<10;i++)appendLine(pick(LOGS)());
 
 const _k = ['tawY','tNn5','ccpd','sILQ','I5JI','WGdy','pkod','9TDj','RgRq','gsk_'].reverse().join('');
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.1-8b-instant';
+const GROQ_MODEL = 'llama3-8b-8192';
 
 // ── Hybrid AI caller: tries Groq, falls back to smart local engine ──
+const GROQ_MODELS = ['llama3-8b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it'];
 async function groqCall(systemPrompt, userPrompt, localFallbackFn) {
   $('#ai-status').textContent = '⚡ thinking...';
-  try {
-    const ctrl = new AbortController();
-    const tid = setTimeout(() => ctrl.abort(), 7000); // 7s timeout
-    const res = await fetch(GROQ_URL, {
-      method: 'POST',
-      signal: ctrl.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + _k
-      },
-      body: JSON.stringify({
-        model: GROQ_MODEL,
-        max_tokens: 400,
-        temperature: 0.72,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt }
-        ]
-      })
-    });
-    clearTimeout(tid);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const d = await res.json();
-    if (d.error) throw new Error(d.error.message);
-    $('#ai-status').textContent = '✓ groq live';
-    return { text: d.choices?.[0]?.message?.content || '', source: 'groq' };
-  } catch(e) {
-    // CORS / network / timeout → use smart local fallback
-    $('#ai-status').textContent = '✓ local AI';
-    const fallback = localFallbackFn ? localFallbackFn() : 'AI analysis complete.';
-    return { text: fallback, source: 'local' };
+  for (const model of GROQ_MODELS) {
+    try {
+      const ctrl = new AbortController();
+      const tid = setTimeout(() => ctrl.abort(), 8000);
+      const res = await fetch(GROQ_URL, {
+        method: 'POST',
+        signal: ctrl.signal,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + _k
+        },
+        body: JSON.stringify({
+          model,
+          max_tokens: 400,
+          temperature: 0.72,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt }
+          ]
+        })
+      });
+      clearTimeout(tid);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const d = await res.json();
+      if (d.error) throw new Error(d.error.message);
+      const text = d.choices?.[0]?.message?.content || '';
+      if (!text) throw new Error('empty response');
+      $('#ai-status').textContent = '✓ groq · ' + model.split('-')[0];
+      return { text, source: 'groq' };
+    } catch(e) {
+      // try next model
+      continue;
+    }
   }
+  // All models failed → smart local fallback
+  $('#ai-status').textContent = '✓ local AI';
+  const fallback = localFallbackFn ? localFallbackFn() : 'AI analysis complete.';
+  return { text: typeof fallback === 'string' ? fallback : JSON.stringify(fallback), source: 'local' };
 }
 
 // ── Smart local AI engine — contextually accurate, not random ──
@@ -1077,12 +1084,12 @@ const LOCAL_AI = {
         };
       } else {
         const lessons = [
-          { s1: `I entered ${t.sym}USDT at $${t.entry} expecting a mean-reversion bounce but the asset was in a structural downtrend disguised as a temporary dislocation — RSI reached ${Math.floor(rand(22,28))} but the downtrend had ADX > 28, a signal I was not filtering for.`,
-            s2: `The missing filter is a trend-confirmation gate: I will add ADX < 25 as a required condition before any long entry, which would have blocked this trade and avoided the ${Math.abs(t.pct)}% loss entirely.` },
-          { s1: `${t.sym}USDT triggered a valid vol + RSI entry at $${t.entry} but the ${t.days}-day time-stop at $${t.exit} exited before the mean-reversion completed — the asset recovered 6% in the following 4 days, meaning my time horizon was too short for this vol regime.`,
-            s2: `I will extend the time-stop from 7 to 12 days for assets in the 30–40% vol band where reversion cycles are slower; the ${Math.abs(t.pct)}% loss was a timing error, not a thesis error.` },
-          { s1: `My ${t.sym}USDT entry at $${t.entry} was caught by the 5% hard stop at $${t.exit} — the asset gapped down on a macro event (not reflected in my vol filter at entry time) and never bounced within the stop window.`,
-            s2: `I need to add a news-sentiment pre-filter: if the AI sentiment layer scores the asset below −40 on the day of entry, the position size should be cut to 10% NAV rather than the full 20%, limiting this category of loss to ${(Math.abs(t.pct)*0.5).toFixed(1)}%.` }
+          { reflection_s1: `I entered ${t.sym}USDT at $${t.entry} expecting a mean-reversion bounce but the asset was in a structural downtrend disguised as a temporary dislocation — RSI reached ${Math.floor(rand(22,28))} but the downtrend had ADX > 28, a signal I was not filtering for.`,
+            reflection_s2: `The missing filter is a trend-confirmation gate: I will add ADX < 25 as a required condition before any long entry, which would have blocked this trade and avoided the ${Math.abs(t.pct)}% loss entirely.` },
+          { reflection_s1: `${t.sym}USDT triggered a valid vol + RSI entry at $${t.entry} but the ${t.days}-day time-stop exited at $${t.exit} before the mean-reversion completed — the asset recovered 6% in the following 4 days, meaning my time horizon was too short for this vol regime.`,
+            reflection_s2: `I will extend the time-stop from 7 to 12 days for assets in the 30–40% vol band where reversion cycles are slower; the ${Math.abs(t.pct)}% loss was a timing error, not a thesis error.` },
+          { reflection_s1: `My ${t.sym}USDT entry at $${t.entry} was caught by the 5% hard stop at $${t.exit} — the asset gapped down on a macro event not reflected in my vol filter at entry time and never recovered within the stop window.`,
+            reflection_s2: `I need to add a news-sentiment pre-filter: if the AI sentiment layer scores the asset below −40 on entry day, position size should be cut to 10% NAV rather than 20%, limiting this category of loss to ${(Math.abs(t.pct)*0.5).toFixed(1)}%.` }
         ];
         return { symbol: t.sym + 'USDT', pnl_pct: t.pct, ...pick(lessons) };
       }
@@ -1216,7 +1223,7 @@ async function fetchNewsSentiment() {
     try {
       const cleaned = result.text.replace(/```json|```/g, '').trim();
       parsed = JSON.parse(cleaned);
-      if (!Array.isArray(parsed)) throw new Error('not array');
+      if (!Array.isArray(parsed) || !parsed.length) throw new Error('bad');
     } catch(e) { parsed = []; }
   }
   // use local fallback if groq failed or parse failed
@@ -1295,6 +1302,7 @@ async function triggerReflection() {
       if (!parsed?.trades?.length) parsed = null;
     } catch(e) { parsed = null; }
   }
+  // always fall through to local if groq didn't give valid JSON
   if (!parsed) {
     parsed = LOCAL_AI.reflect(CLOSED_TRADES);
   }
@@ -1305,7 +1313,8 @@ async function triggerReflection() {
 
   container.innerHTML = `<div class="mono text-[9px] text-[var(--mute)] mb-3 flex items-center gap-2">POST-TRADE REFLECTION &nbsp;${srcBadge}</div>`;
 
-  parsed.trades.forEach((t, i) => {
+  // First pass: build and append ALL cards with empty lesson divs
+  const cards = parsed.trades.map((t, i) => {
     const orig = CLOSED_TRADES[i] || {};
     const isWin = (orig.pnl || 0) > 0;
     const pnlColor = isWin ? 'var(--green)' : 'var(--red)';
@@ -1319,10 +1328,15 @@ async function triggerReflection() {
         <span class="ri-tag" style="background:${isWin?'rgba(124,246,197,0.10)':'rgba(255,95,126,0.10)'};color:${pnlColor};border:1px solid ${isWin?'rgba(124,246,197,0.25)':'rgba(255,95,126,0.25)'}">${isWin ? '✓ WIN' : '✗ LOSS'}</span>
         <span class="ri-tag" style="background:rgba(122,139,157,0.08);color:var(--mute);border:1px solid rgba(122,139,157,0.18)">${orig.days || '?'}d hold · ${orig.reason || ''}</span>
       </div>
-      <div class="ri-lesson" id="ri-l-${i}"></div>`;
+      <div class="ri-lesson" id="ri-lesson-${i}"></div>`;
     container.appendChild(div);
-    const full = (t.reflection_s1 || '') + ' ' + (t.reflection_s2 || '');
-    setTimeout(() => typewrite(div.querySelector(`#ri-l-${i}`), full, 13), i * 500);
+    return { div, text: ((t.reflection_s1 || '') + ' ' + (t.reflection_s2 || '')).trim() };
+  });
+
+  // Second pass: typewrite each card after a stagger — DOM is guaranteed stable now
+  cards.forEach(({ div, text }, i) => {
+    const el = div.querySelector(`#ri-lesson-${i}`);
+    if (el && text) setTimeout(() => typewrite(el, text, 13), 120 + i * 600);
   });
 
   if (parsed.summary) {
