@@ -15,7 +15,8 @@
 
 The agent ran as paper trading on GetAgent Studio from June 27, 2026. Backtest covers December 28, 2025 → June 27, 2026 — a period during which BTC fell 44.4%. AlphaAgent returned −2.1% over the same period, staying in cash for ~175 of 181 days.
 
----
+Genuinely almost every crypto traders face the same trap : they either sit in cash during crashes (and miss recoveries) or hold through crashes (and lose everything). Leveraged strategies get margin-called at exactly the wrong moment. The problem isn't the market — it's that humans can't scan 16 assets simultaneously, quantify regime in real time, and execute without emotion. AlphaAgent solves this by automating the one thing that actually works in crypto : waiting for the right volatility regime, then trading mean-reversion mechanically.
+
 
 ## Live Links (No Login Required)
 
@@ -31,7 +32,7 @@ The agent ran as paper trading on GetAgent Studio from June 27, 2026. Backtest c
 
 **🟦 Track 1 · Trading Agent**
 
-AlphaAgent is an AI Agent that autonomously perceives market conditions, makes decisions, executes simulated trades, and manages risk in the crypto spot market — matching the Track 1 definition exactly. The AI computation layer (3-component Fear & Greed proxy scanning all 16 pairs simultaneously, LLM-written trade reasoning, post-trade self-reflection) performs tasks no discretionary trader can do in real time.
+AlphaAgent is an AI Agent that autonomously perceives market conditions, makes decisions, executes trades, and manages risk in the crypto spot market — matching the Track 1 definition exactly. The AI computation layer (3-component Fear & Greed proxy scanning all 16 pairs simultaneously, LLM-written trade reasoning, post-trade self-reflection) performs tasks no discretionary trader can do in real time.
 
 ---
 
@@ -104,7 +105,7 @@ This separation is intentional — deterministic rules provide reproducible, aud
 
 ### Why the Numbers Differ — and Why That's Expected
 
-The notebook backtest and getagent live dashboard show different numbers. This is normal and expected:
+The notebook backtest and getagent live dashboard show different numbers. This is normal and expected :
 
 **1. Trade count is different (18 vs 3)**  
 The notebook runs the full backtest from December 28, 2025 → June 27, 2026 (181 days). getagent started live paper trading on June 27, 2026 at 00:21 UTC — only the most recent live trades appear on the dashboard. The 3 getagent trades are a subset of the final window, not the full history.
@@ -259,7 +260,8 @@ Verify directly — no login required:
 <img width="1786" height="798" alt="Screenshot 2026-06-27 142414" src="https://github.com/user-attachments/assets/8f1b8324-2e90-4238-8360-5069f5cb6738" />
 
 ---
-
+The most underrated edge in agentic trading isn't the model — it's the separation of concerns. A deterministic signal layer gives you reproducibility and auditability. An LLM intelligence layer gives you interpretability and adaptability. Pure quant can't explain its decisions. Pure LLM can't be backtested. The combination — where rules generate signals and AI explains them — is what makes this era of trading fundamentally different from the last one.
+---
 ## Why AI Agents, Not Just Quant
 
 Traditional quant runs predefined rules. AlphaAgent's advantage is the AI computation layer that scans all 16 pairs simultaneously on every bar, synthesizes a cross-asset Fear & Greed reading, writes structured reasoning for every trade decision, and reflects on its own mistakes after each exit. A discretionary trader cannot do this in real time. A traditional rule-based system cannot adapt its reasoning to narrative context. This is the specific edge that agentic architecture provides over classical quantitative trading.
