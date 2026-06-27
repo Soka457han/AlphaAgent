@@ -1,8 +1,6 @@
 # AlphaAgent — Volatility Harness Mean-Reversion Trading Agent
 
 > **Bitget AI Hackathon S1 · Track 1 : Trading Agent**  
-> Period: December 28, 2025 → June 27, 2026 · 16 USDT Spot Pairs · 1× Leverage
-
 [![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-7cf6c5?style=flat-square)](https://soka457han.github.io/AlphaAgent/)
 [![MuleRun Deploy](https://img.shields.io/badge/MuleRun_Deploy-Live-9fb7ff?style=flat-square)](https://5cwf2bh5.mule.page)
 [![GetAgent Studio](https://img.shields.io/badge/GetAgent_Studio-Paper_Trading_Live-ffb547?style=flat-square)](https://getagent.studio/strategy/6724a69c-472e-480f-ab6a-a766e3ade44c)
@@ -192,7 +190,8 @@ AlphaAgent/
 ├── AlphaAgent_TradeLogs.csv    # Machine-readable trade log 
 ├── AlphaAgent_NAV_History.csv  # Daily NAV history 
 ├── AlphaAgent_v1.html          # Live paper trading UI & backtest presentation
-└── README.md                   # This file
+├── README.md                   # This file
+└── index.html                  # Main interactive dashboard & AI reasoning UI
 ```
 
 ---
