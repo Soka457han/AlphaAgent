@@ -260,8 +260,7 @@ Verify directly — no login required:
 <img width="1786" height="798" alt="Screenshot 2026-06-27 142414" src="https://github.com/user-attachments/assets/8f1b8324-2e90-4238-8360-5069f5cb6738" />
 
 ---
-The most underrated edge in agentic trading isn't the model — it's the separation of concerns. A deterministic signal layer gives you reproducibility and auditability. An LLM intelligence layer gives you interpretability and adaptability. Pure quant can't explain its decisions. Pure LLM can't be backtested. The combination — where rules generate signals and AI explains them — is what makes this era of trading fundamentally different from the last one.
----
+
 ## Why AI Agents, Not Just Quant
 
 Traditional quant runs predefined rules. AlphaAgent's advantage is the AI computation layer that scans all 16 pairs simultaneously on every bar, synthesizes a cross-asset Fear & Greed reading, writes structured reasoning for every trade decision, and reflects on its own mistakes after each exit. A discretionary trader cannot do this in real time. A traditional rule-based system cannot adapt its reasoning to narrative context. This is the specific edge that agentic architecture provides over classical quantitative trading.
