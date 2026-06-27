@@ -6,7 +6,7 @@
 [![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-7cf6c5?style=flat-square)](https://soka457han.github.io/AlphaAgent/)
 [![MuleRun Deploy](https://img.shields.io/badge/MuleRun_Deploy-Live-9fb7ff?style=flat-square)](https://5cwf2bh5.mule.page)
 [![GetAgent Studio](https://img.shields.io/badge/GetAgent_Studio-Paper_Trading_Live-ffb547?style=flat-square)](https://getagent.studio/strategy/6724a69c-472e-480f-ab6a-a766e3ade44c)
-[![Track](https://img.shields.io/badge/Track-🟦_Trading_Agent-0066cc?style=flat-square)](#)
+
 
 ---
 
@@ -100,6 +100,7 @@ This separation is intentional — deterministic rules provide reproducible, aud
 | Profit Factor | 0.242 | 0.27× |
 | Avg Round Trip | −2.86% | −3.31% |
 | Round Trips | 18 | 3 |
+<img width="2087" height="1769" alt="AlphaAgent_Backtest_Charts" src="https://github.com/user-attachments/assets/4c2e5e3d-8704-478e-8c0d-c22369bfcd8e" />
 
 ### Why the Numbers Differ — and Why That's Expected
 
