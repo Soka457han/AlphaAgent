@@ -1,6 +1,6 @@
 # AlphaAgent — Volatility Harness Mean-Reversion Trading Agent
 
-> **Bitget AI Base Camp Hackathon S1 · Track 1: Trading Agent**  
+> **Bitget AI Hackathon S1 · Track 1 : Trading Agent**  
 > Period: December 28, 2025 → June 27, 2026 · 16 USDT Spot Pairs · 1× Leverage
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-7cf6c5?style=flat-square)](https://soka457han.github.io/AlphaAgent/)
@@ -9,6 +9,7 @@
 
 
 ---
+<img width="1811" height="909" alt="Screenshot 2026-06-27 141954" src="https://github.com/user-attachments/assets/9875a709-d673-405d-a42d-aa15b30397aa" />
 
 ## What This Is
 
@@ -45,6 +46,7 @@ AlphaAgent is an AI Agent that autonomously perceives market conditions, makes d
 2. **RSI-14 ≤ 28 = temporary panic, not terminal.** Liquid assets (BTC, ETH, BNB, SOL) have persistent institutional bid support. When RSI drops below 28 inside the vol band, it signals selling beyond fundamental value that reverts within days. Exit at RSI ≥ 60 — the mean-reversion move is complete.
 
 3. **Spot at 1× leverage means no forced exits.** Mean-reversion strategies need time. No liquidation risk, no funding drain, no margin calls. When BTC dropped 44% Dec–Jun 2026, every leveraged strategy faced margin calls. AlphaAgent stayed in cash and lost only 2.1%.
+<img width="1837" height="908" alt="Screenshot 2026-06-27 143012" src="https://github.com/user-attachments/assets/70d9fb3f-4969-4f99-b505-1d97574aaf54" />
 
 ### Strategy Architecture
 
@@ -142,6 +144,7 @@ This is a **first-version parameter problem, not a thesis problem.**
 ---
 
 ## Running the Backtest
+<img width="1478" height="680" alt="Screenshot 2026-06-27 142806" src="https://github.com/user-attachments/assets/860f6416-01a6-464d-8e59-222971088f6f" />
 
 ### Requirements
 
@@ -185,16 +188,16 @@ Public endpoint. No authentication. Results are deterministic given Bitget's his
 
 ```
 AlphaAgent/
-├── AlphaAgent_Backtest.ipynb   # Full backtest — 11 cells, run top-to-bottom
-├── AlphaAgent_TradeLogs.csv    # Machine-readable trade log (judges: verify here)
-├── AlphaAgent_NAV_History.csv  # Daily NAV history Dec 2025 – Jun 2026
-├── AlphaAgent_Backtest_Charts.png  # NAV curve, drawdown, vol regime chart
+├── AlphaAgent_Backtest.ipynb   # Full backtest 
+├── AlphaAgent_TradeLogs.csv    # Machine-readable trade log 
+├── AlphaAgent_NAV_History.csv  # Daily NAV history 
+├── AlphaAgent_v1.html          # Live paper trading UI & backtest presentation
 └── README.md                   # This file
 ```
 
 ---
 
-## Strategy Parameters (v14)
+## Strategy Parameters (v15)
 
 All parameters are defined in a single dict in Cell 2 of the notebook. No magic numbers anywhere in the codebase.
 
@@ -242,6 +245,7 @@ The exported `AlphaAgent_TradeLogs.csv` includes all required fields:
 | `strategy` | AlphaAgent v14 Volatility Harness |
 
 ---
+<img width="1546" height="900" alt="Screenshot 2026-06-27 142219" src="https://github.com/user-attachments/assets/bd07e896-a410-4e66-8f85-d7211086016a" />
 
 ## Paper Trading (Live)
 
@@ -251,6 +255,9 @@ Verify directly — no login required:
 [getagent.studio/strategy/6724a69c-472e-480f-ab6a-a766e3ade44c](https://getagent.studio/strategy/6724a69c-472e-480f-ab6a-a766e3ade44c)
 
 ---
+<img width="1680" height="624" alt="Screenshot 2026-06-27 142504" src="https://github.com/user-attachments/assets/961c29d0-b840-40fa-96e6-94996bed325e" />
+<img width="1768" height="873" alt="Screenshot 2026-06-27 142429" src="https://github.com/user-attachments/assets/5a4efd9e-c572-4be4-8bc6-5175b63192de" />
+<img width="1786" height="798" alt="Screenshot 2026-06-27 142414" src="https://github.com/user-attachments/assets/8f1b8324-2e90-4238-8360-5069f5cb6738" />
 
 ---
 
@@ -260,4 +267,4 @@ Traditional quant runs predefined rules. AlphaAgent's advantage is the AI comput
 
 ---
 
-*AlphaAgent · Bitget AI Base Camp Hackathon S1 · Track 1: Trading Agent · Paper trading research · Not investment advice*
+*AlphaAgent · Bitget AI Hackathon S1 · Track 1 : Trading Agent · Paper trading research · DYOR*
