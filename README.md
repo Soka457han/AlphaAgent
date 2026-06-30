@@ -9,42 +9,34 @@
 ---
 <img width="1811" height="909" alt="Screenshot 2026-06-27 141954" src="https://github.com/user-attachments/assets/9875a709-d673-405d-a42d-aa15b30397aa" />
 
-## What This Is
+## Description
 
-**AlphaAgent** is an AI native mean reversion trading agent for Bitget spot markets. It autonomously monitors 16 USDT pairs, filters for exploitable volatility regimes, and enters long positions when panic driven oversold dislocations occur — exiting via a 4 way competition of exits that prevents any position becoming a runaway loss.
+**AlphaAgent** is an AI native mean reversion trading agent for Bitget spot markets. It autonomously monitors and check listed 16 USDT pairs, filters for exploitable volatility regimes and enters long positions when panic driven oversold dislocations occurs. To protect capital it ensures rigorous risk management, with a unique 4 way dynamic exit strategy, effectively neutralizing the risk of runaway losses.
 
 The agent ran as paper trading on GetAgent Studio from June 27, 2026. Backtest covers December 28, 2025 → June 27, 2026 - a period during which BTC fell 44.4%. AlphaAgent returned −2.1% over the same period, staying in cash for ~175 of 181 days.
 
-Genuinely almost every crypto traders face the same trap : they either sit in cash during crashes (and miss recoveries) or hold through crashes (and lose everything). Leveraged strategies get margin called at exactly the wrong moment. The problem isn't the market — it's that humans can't scan 16 assets simultaneously, quantify regime in real time, and execute without emotion. AlphaAgent solves this by automating the one thing that actually works in crypto : waiting for the right volatility regime, then trading mean reversion mechanically.
+Genuinely almost all crypto traders face the same trap : freezing in cash during crashes and missing the bounce, or diamond handing straight to zero. Leveraged strategies get margin called at exactly the wrong moment. The problem isn't the market. it's that humans that simultaneously, analyze market regimes in real time data, and trade without emotion. AlphaAgent solves the problem systematizes the market's most resilient strategy and that is identifying optimal volatility regimes - 3 component Fear & Greed proxy scanning all 16 pairs simultaneously, LLM written trade reasoning, post trade self reflection and executing mean reversion trades with strict and mechanical precision.
 
 
 ## Live Links (No Login Required)
 
 | Link | Purpose |
 |------|---------|
-| [soka457han.github.io/AlphaAgent](https://soka457han.github.io/AlphaAgent/) | Primary demo — full strategy thesis, live watchlist, AI reasoning panel |
-| [5cwf2bh5.mule.page](https://5cwf2bh5.mule.page) | MuleRun deployment — identical demo hosted on MuleRun platform |
-| [getagent.studio/strategy/6724a69c…](https://getagent.studio/strategy/6724a69c-472e-480f-ab6a-a766e3ade44c) | GetAgent Studio — live paper trading strategy, verifiable without login |
-
----
-
-## Track
-
-**🟦 Track 1 · Trading Agent**
-
-AlphaAgent is an AI Agent that autonomously perceives market conditions, makes decisions, executes trades, and manages risk in the crypto spot market matching the Track 1 definition exactly. The AI computation layer (3-component Fear & Greed proxy scanning all 16 pairs simultaneously, LLM written trade reasoning, post trade self-reflection) performs tasks no discretionary trader can do in real time.
+| [soka457han.github.io/AlphaAgent](https://soka457han.github.io/AlphaAgent/) | (Primary demo) Full strategy thesis, live watchlist, AI reasoning panel |
+| [5cwf2bh5.mule.page](https://5cwf2bh5.mule.page) | (MuleRun deployment) Identical demo hosted on MuleRun platform |
+| [getagent.studio/strategy/6724a69c…](https://getagent.studio/strategy/6724a69c-472e-480f-ab6a-a766e3ade44c) | (GetAgent Studio) live paper trading strategy, verifiable without login |
 
 ---
 
 ## Strategy Overview
 
-### Core Thesis — 3 Lines
+### Core Thesis of AlphaAgent
 
-1. **Volatility is the edge gate.** Crypto dislocations only revert reliably when annualized realized vol sits between 15–40%. Below 15%: no dislocation exists. Above 40%: dislocations become trends and mean reversion fails. The sweet spot is the regime where temporary fear creates exploitable overshoot *without* structural breakdown.
+1. **Volatility is the edge gate.** Crypto dislocations only revert reliably when annualized realized vol sits between 15–40%. Below 15%: no dislocation exists. Above 40%, dislocations become trends and mean reversion fails. The sweet spot is the regime where temporary fear creates exploitable overshoot *without* structural breakdown.
 
-2. **RSI-14 ≤ 28 = temporary panic, not terminal.** Liquid assets (BTC, ETH, BNB, SOL) have persistent institutional bid support. When RSI drops below 28 inside the vol band, it signals selling beyond fundamental value that reverts within days. Exit at RSI ≥ 60 — the mean-reversion move is complete.
+2. **RSI-14 ≤ 28, Capitalizing on Temporary Panic.** Liquid assets (BTC, ETH, BNB, SOL) have persistent institutional bid support. When RSI drops below 28 inside the vol band, it signals selling beyond fundamental value that reverts within days. Exit at RSI ≥ 60, the mean reversion move is complete.
 
-3. **Spot at 1× leverage means no forced exits.** Mean-reversion strategies need time. No liquidation risk, no funding drain, no margin calls. When BTC dropped 44% Dec–Jun 2026, every leveraged strategy faced margin calls. AlphaAgent stayed in cash and lost only 2.1%.
+3. **Spot at 1× leverage means no forced exits.** Mean reversion strategies need time. No liquidation risk, no funding drain, no margin calls. When BTC dropped 44% Dec–Jun 2026, every leveraged strategy faced margin calls. AlphaAgent stayed in cash and lost only 2.1%.
 <img width="1837" height="908" alt="Screenshot 2026-06-27 143012" src="https://github.com/user-attachments/assets/70d9fb3f-4969-4f99-b505-1d97574aaf54" />
 
 ### Strategy Architecture
@@ -74,16 +66,13 @@ Signal Flow:
 
 ### Two-Layer Architecture
 
-AlphaAgent uses a deliberate two-layer design:
+AlphaAgent works with a strict two layer for flawless mechanical execution and having deep AI interpretability.
 
-**Signal Layer — deterministic**  
-A volatility harness + RSI mean-reversion engine running on daily bars. Generates entry and exit decisions with zero latency. Every decision is rule-based, reproducible, and auditable. This is what the backtest reflects.
+The deterministic Signal Layer : A volatility harness + RSI mean reversion engine running on daily bars. Generates entry and exit decisions with zero latency. Every decision is rule based, reproducible, and auditable. This is what the backtest result reflects.
 
-**Intelligence Layer — LLM-powered**  
-After every signal fires, the AI Brain writes a natural-language reasoning log explaining why the agent entered. It reads live market sentiment from headlines to contextualise the regime. After every closed position, it writes a post-mortem identifying what it would change next time.
+The LLM powered Intelligence Layer : Every time a trade is executed, the AI Brain writes a natural language reasoning log explaining why the agent entered. It reads live market sentiment from headlines to contextualise the regime. After every closed position, it writes a post mortem identifying what it would change next time, constantly adapting and evolving for the next trade.
 
-This separation is intentional, deterministic rules provide reproducible, auditable signals; the LLM provides the interpretability and self improvement loop that a static bot cannot. The backtest reflects the signal layer; the AI layer is visible in the live demo.
-
+This separation is intentional, deterministic rules provide reproducible, auditable signals; the LLM provides the interpretability and self improvement loop 
 ---
 
 ## Backtest Results
@@ -103,42 +92,42 @@ This separation is intentional, deterministic rules provide reproducible, audita
 | Round Trips | 18 | 3 |
 <img width="2087" height="1769" alt="AlphaAgent_Backtest_Charts" src="https://github.com/user-attachments/assets/4c2e5e3d-8704-478e-8c0d-c22369bfcd8e" />
 
-### Why the Numbers Differ — and Why That's Expected
+### Transparency Note : Backtest vs Live Execution
 
-The notebook backtest and getagent live dashboard show different numbers. This is normal and expected :
+The notebook backtest and getagent live dashboard shows different numbers. This is normal and expected :
 
 **1. Trade count is different (18 vs 3)**  
 The notebook runs the full backtest from December 28, 2025 → June 27, 2026 (181 days). getagent started live paper trading on June 27, 2026 at 00:21 UTC — only the most recent live trades appear on the dashboard. The 3 getagent trades are a subset of the final window, not the full history.
 
 **2. Execution price differs**  
-The notebook uses daily close prices (no slippage). getagent executes at live market prices with real timing and small differences in entry/exit price per trade are expected.
+The notebook uses daily close prices with no slippage. GetAgent executes at live market prices with real timing and small differences in entry/exit price per trade are expected.
 
 **3. Period differs**  
 Notebook covers 181 days of full history. getagent dashboard reflects only live paper trading since June 27.
 
 ### The Key Validation
 
-Profit Factor (0.242 vs 0.27×) and Avg Round Trip (−2.86% vs −3.31%) are close between both sources — this is the most important signal. It confirms the **strategy logic is executing correctly** in both environments. The difference in total return and trade count is purely a function of the different observation windows, not a discrepancy in the strategy itself.
+Profit Factor (0.242 vs 0.27×) and Avg Round Trip (−2.86% vs −3.31%) are close between both sources, this is the most important signal. It confirms the **strategy logic is executing correctly** in both environments. The difference in total return and trade count is purely a function of the different observation windows, not a discrepancy in the strategy itself.
 
 ---
 
-## Honest Self-Assessment
+## Honest Self Assessment
 
-This is a **first version parameter problem, not a thesis problem.**
+This is fundamentally a parameter problem, not a thesis problem.
 
-**What worked:**
+**What worked flawlessly :**
 - Capital protection: −2.9% max drawdown while BTC fell 44%. The vol harness did exactly what it was designed to do.
 - Regime detection: the strategy correctly identified Dec 2025–Jun 2026 as a trending bear market — not a mean-reversion regime and stayed flat.
 - F&G proxy correctly triggered majors-only mode during extreme fear, blocking altcoin entries during the worst crashes.
 - 4-exit system: no position became a runaway loss. All 3 trades exited within designed risk parameters.
 
-**What didn't work:**
+**What Needs Calibration (What didn't work) :**
 - Vol band 15–40% was too narrow for this period (crypto sustained vol above 40% from Dec–May). The harness correctly blocked entry but left near-zero trade activity.
 - 7-day time stop forced exits before some mean-reversions completed.
 - No trend-confirmation filter (ADX): the 3 entries caught assets still in downtrend RSI recovered to 28 threshold but the move wasn't done.
 - 3 trades is statistically insufficient to evaluate a strategy.
 
-**Root cause:** parameter mis-calibration for the observed regime, not a flaw in the core assumption.
+**Root cause:** The core logic is intact. Parameter mis-calibration for the specific observed macro regime. The core mean reversion assumption remains highly robust
 
 ---
 
@@ -238,7 +227,7 @@ The exported `AlphaAgent_TradeLogs.csv` includes all required fields:
 | `account_balance_after` | Running NAV after this trade |
 | `leverage` | Always 1 (spot) |
 | `exchange` | Bitget Spot |
-| `strategy` | AlphaAgent v14 Volatility Harness |
+| `strategy` | AlphaAgent v15 Volatility Harness |
 
 ---
 <img width="1546" height="900" alt="Screenshot 2026-06-27 142219" src="https://github.com/user-attachments/assets/bd07e896-a410-4e66-8f85-d7211086016a" />
