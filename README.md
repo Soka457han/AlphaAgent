@@ -1,4 +1,4 @@
-# AlphaAgent — Volatility Harness Mean-Reversion Trading Agent
+# AlphaAgent — Volatility Harness Mean Reversion Trading Agent
 
 > **Bitget AI Hackathon S1 · Track 1 : Trading Agent**  
 [![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-7cf6c5?style=flat-square)](https://soka457han.github.io/AlphaAgent/)
@@ -11,11 +11,11 @@
 
 ## What This Is
 
-**AlphaAgent** is an AI-native mean-reversion trading agent for Bitget spot markets. It autonomously monitors 16 USDT pairs, filters for exploitable volatility regimes, and enters long positions when panic-driven oversold dislocations occur — exiting via a 4-way competition of exits that prevents any position becoming a runaway loss.
+**AlphaAgent** is an AI native mean reversion trading agent for Bitget spot markets. It autonomously monitors 16 USDT pairs, filters for exploitable volatility regimes, and enters long positions when panic driven oversold dislocations occur — exiting via a 4 way competition of exits that prevents any position becoming a runaway loss.
 
-The agent ran as paper trading on GetAgent Studio from June 27, 2026. Backtest covers December 28, 2025 → June 27, 2026 — a period during which BTC fell 44.4%. AlphaAgent returned −2.1% over the same period, staying in cash for ~175 of 181 days.
+The agent ran as paper trading on GetAgent Studio from June 27, 2026. Backtest covers December 28, 2025 → June 27, 2026 - a period during which BTC fell 44.4%. AlphaAgent returned −2.1% over the same period, staying in cash for ~175 of 181 days.
 
-Genuinely almost every crypto traders face the same trap : they either sit in cash during crashes (and miss recoveries) or hold through crashes (and lose everything). Leveraged strategies get margin-called at exactly the wrong moment. The problem isn't the market — it's that humans can't scan 16 assets simultaneously, quantify regime in real time, and execute without emotion. AlphaAgent solves this by automating the one thing that actually works in crypto : waiting for the right volatility regime, then trading mean-reversion mechanically.
+Genuinely almost every crypto traders face the same trap : they either sit in cash during crashes (and miss recoveries) or hold through crashes (and lose everything). Leveraged strategies get margin called at exactly the wrong moment. The problem isn't the market — it's that humans can't scan 16 assets simultaneously, quantify regime in real time, and execute without emotion. AlphaAgent solves this by automating the one thing that actually works in crypto : waiting for the right volatility regime, then trading mean reversion mechanically.
 
 
 ## Live Links (No Login Required)
@@ -32,7 +32,7 @@ Genuinely almost every crypto traders face the same trap : they either sit in ca
 
 **🟦 Track 1 · Trading Agent**
 
-AlphaAgent is an AI Agent that autonomously perceives market conditions, makes decisions, executes trades, and manages risk in the crypto spot market — matching the Track 1 definition exactly. The AI computation layer (3-component Fear & Greed proxy scanning all 16 pairs simultaneously, LLM-written trade reasoning, post-trade self-reflection) performs tasks no discretionary trader can do in real time.
+AlphaAgent is an AI Agent that autonomously perceives market conditions, makes decisions, executes trades, and manages risk in the crypto spot market matching the Track 1 definition exactly. The AI computation layer (3-component Fear & Greed proxy scanning all 16 pairs simultaneously, LLM written trade reasoning, post trade self-reflection) performs tasks no discretionary trader can do in real time.
 
 ---
 
@@ -40,7 +40,7 @@ AlphaAgent is an AI Agent that autonomously perceives market conditions, makes d
 
 ### Core Thesis — 3 Lines
 
-1. **Volatility is the edge gate.** Crypto dislocations only revert reliably when annualized realized vol sits between 15–40%. Below 15%: no dislocation exists. Above 40%: dislocations become trends and mean-reversion fails. The sweet spot is the regime where temporary fear creates exploitable overshoot *without* structural breakdown.
+1. **Volatility is the edge gate.** Crypto dislocations only revert reliably when annualized realized vol sits between 15–40%. Below 15%: no dislocation exists. Above 40%: dislocations become trends and mean reversion fails. The sweet spot is the regime where temporary fear creates exploitable overshoot *without* structural breakdown.
 
 2. **RSI-14 ≤ 28 = temporary panic, not terminal.** Liquid assets (BTC, ETH, BNB, SOL) have persistent institutional bid support. When RSI drops below 28 inside the vol band, it signals selling beyond fundamental value that reverts within days. Exit at RSI ≥ 60 — the mean-reversion move is complete.
 
@@ -82,7 +82,7 @@ A volatility harness + RSI mean-reversion engine running on daily bars. Generate
 **Intelligence Layer — LLM-powered**  
 After every signal fires, the AI Brain writes a natural-language reasoning log explaining why the agent entered. It reads live market sentiment from headlines to contextualise the regime. After every closed position, it writes a post-mortem identifying what it would change next time.
 
-This separation is intentional — deterministic rules provide reproducible, auditable signals; the LLM provides the interpretability and self-improvement loop that a static bot cannot. The backtest reflects the signal layer; the AI layer is visible in the live demo.
+This separation is intentional, deterministic rules provide reproducible, auditable signals; the LLM provides the interpretability and self improvement loop that a static bot cannot. The backtest reflects the signal layer; the AI layer is visible in the live demo.
 
 ---
 
@@ -111,7 +111,7 @@ The notebook backtest and getagent live dashboard show different numbers. This i
 The notebook runs the full backtest from December 28, 2025 → June 27, 2026 (181 days). getagent started live paper trading on June 27, 2026 at 00:21 UTC — only the most recent live trades appear on the dashboard. The 3 getagent trades are a subset of the final window, not the full history.
 
 **2. Execution price differs**  
-The notebook uses daily close prices (no slippage). getagent executes at live market prices with real timing — small differences in entry/exit price per trade are expected.
+The notebook uses daily close prices (no slippage). getagent executes at live market prices with real timing and small differences in entry/exit price per trade are expected.
 
 **3. Period differs**  
 Notebook covers 181 days of full history. getagent dashboard reflects only live paper trading since June 27.
@@ -124,18 +124,18 @@ Profit Factor (0.242 vs 0.27×) and Avg Round Trip (−2.86% vs −3.31%) are cl
 
 ## Honest Self-Assessment
 
-This is a **first-version parameter problem, not a thesis problem.**
+This is a **first version parameter problem, not a thesis problem.**
 
 **What worked:**
 - Capital protection: −2.9% max drawdown while BTC fell 44%. The vol harness did exactly what it was designed to do.
-- Regime detection: the strategy correctly identified Dec 2025–Jun 2026 as a trending bear market — not a mean-reversion regime — and stayed flat.
+- Regime detection: the strategy correctly identified Dec 2025–Jun 2026 as a trending bear market — not a mean-reversion regime and stayed flat.
 - F&G proxy correctly triggered majors-only mode during extreme fear, blocking altcoin entries during the worst crashes.
 - 4-exit system: no position became a runaway loss. All 3 trades exited within designed risk parameters.
 
 **What didn't work:**
 - Vol band 15–40% was too narrow for this period (crypto sustained vol above 40% from Dec–May). The harness correctly blocked entry but left near-zero trade activity.
 - 7-day time stop forced exits before some mean-reversions completed.
-- No trend-confirmation filter (ADX): the 3 entries caught assets still in downtrend — RSI recovered to 28 threshold but the move wasn't done.
+- No trend-confirmation filter (ADX): the 3 entries caught assets still in downtrend RSI recovered to 28 threshold but the move wasn't done.
 - 3 trades is statistically insufficient to evaluate a strategy.
 
 **Root cause:** parameter mis-calibration for the observed regime, not a flaw in the core assumption.
@@ -171,11 +171,7 @@ All 11 cells run top-to-bottom without modification. The notebook fetches live O
 - `AlphaAgent_TradeLogs.csv` — full trade log with timestamps, pairs, direction, prices, quantities, PnL, and running balance
 - `AlphaAgent_NAV_History.csv` — daily NAV history for the full period
 
-### Data Source
 
-```
-GET https://api.bitget.com/api/v2/spot/market/history-candles
-```
 
 Public endpoint. No authentication. Results are deterministic given Bitget's historical data.
 
